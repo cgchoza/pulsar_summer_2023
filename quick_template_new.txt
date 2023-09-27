@@ -1,0 +1,30 @@
+#!/bin/bash
+#PBS -M cgchoza@gmail.com
+#PBS -m ae
+#PBS -V
+#PBS -N Terzan5_chunks_XXXX
+#PBS -l nodes=5:new:ppn=WWWW
+
+MJD=XXXX
+OUTDIR=/scratch/Terzan5All/candidates
+WORKDIR=/scratch/Terzan5All/
+BIRDSFILE=/users/cchoza/chunk_search/Ter5_basic.birds
+
+NUMHARM=4
+SIGMA=1.6
+FLO=2.0
+ZMAX=YYYY
+NUMCHUNK=ZZZZ
+NUMCPUS=WWWW
+
+# The following are executed by each node
+pbsdsh -u -- mkdir -m 1775 -p ${OUTDIR}
+# Copy the analysis script to each node
+pbsdsh -u -- cp /users/cchoza/chunk_search/short_analysis_Ter5All.py ${OUTDIR}
+# We need one .birds file
+pbsdsh -u -- cp -f ${BIRDSFILE} ${OUTDIR}
+
+# Search
+pbsdsh -- python ${OUTDIR}/short_analysis_Ter5All.py --numcpus ${NUMCPUS} --workdir ${OUTDIR} --zmax ${ZMAX} --flo ${FLO} --sigma ${SIGMA} --outdir ${OUTDIR} --numharm ${NUMHARM} --number ${NUMCHUNK} --mjd ${MJD}
+
+
