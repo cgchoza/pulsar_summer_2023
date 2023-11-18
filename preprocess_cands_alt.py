@@ -60,6 +60,8 @@ if __name__ == "__main__":
                         help="Text file with MJDs to process")
     parser.add_argument("-o", "--outdir", type=str, dest="outdir", default="/users/cchoza/chunk_search", required=True,
                         help="Directory for output files")
+    parser.add_argument("-f", "--filename", type=str, dest="filename", default=None, required=True,
+                        help="Seed for file name")
 
     args = parser.parse_args()
 
